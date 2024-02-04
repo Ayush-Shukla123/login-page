@@ -1,0 +1,157 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@Shukla12345 
+Org-0001
+/
+Alumnibees_Frontend
+Private
+1
+00
+Code
+Issues
+2
+Pull requests
+Discussions
+Actions
+Projects
+1
+Security
+Insights
+Alumnibees_Frontend/base.html
+@vinit1
+vinit1 Add files via upload
+Latest commit 163b0bf 2 days ago
+ History
+ 1 contributor
+111 lines (107 sloc)  5.57 KB
+  
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Alumnibees</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="C:\Users\drvin\Downloads\fontawesome-free-5.15.2-web\css\fontawesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <meta name="google-signin-client_id" content="611609550726-o26ptkv4hcs76594qosim29lb2f4bpld.apps.googleusercontent.com">
+        <style>td {padding:5px }</style>
+    </head>
+    <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'index'%}">Alumnibees</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'index'%}" id="services-link">
+                                Services
+                            </a>
+                        </li>
+                        <li class="nav-item" id=" content-2">
+                                {% block content-2 %}{% endblock %}
+                        </li>
+                        <li class="nav-item" id=" content-3">
+                                {% block content-3 %}{% endblock %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Container (The Services Section) -->
+        <div class="container ">
+             <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+            <div id="services" class="row text-center">
+                <p>Services coming soon!</p>
+                <br>
+            </div>
+        </div>
+
+         <footer class="text-center">
+             <a id="totop" class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP" style=" display: none">
+                 <span class="glyphicon glyphicon-chevron-up"></span></a>
+             <ul>
+                 <a href=# data-toggle="tooltip" title="About us" > About</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                 <a href="{% url 'privacy'%}" data-toggle="tooltip" title="Privacy Policy" > Privacy</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                 <a href="{% url 'service_terms'%}" data-toggle="tooltip" title="Terms of Service" > Terms</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                 <a href=# data-toggle="tooltip" title="Advertise with us" > Advertising</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             </ul>
+             <p>Alumnibees Infotech Pvt. Ltd. &COPY; Copyright 2021. All Rights Reserved.</p>
+         </footer>
+
+
+        <!-- Google Sign in button -->
+        <script>
+        function onSuccess(googleUser) {
+          console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+        }
+        function onFailure(error) {
+          console.log(error);
+        }
+        function renderButton() {
+          gapi.signin2.render('my-signin2', {
+            'scope': 'profile email',
+            'width': 240,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark',
+            'onsuccess': onSuccess,
+            'onfailure': onFailure
+          });
+        }
+        </script>
+        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+        <script>
+            function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                console.log('User signed out.');
+                });
+            }
+        </script>
+        <!-- Send the ID token to your server -->
+        <script>
+            function onSignIn(googleUser) {
+                var id_token = googleUser.getAuthResponse().id_token;
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'http://127.0.0.1:8000/callback/tokensignin');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function() {
+                  console.log('Signed in as: ' + xhr.responseText);
+                };
+                xhr.send('idtoken=' + id_token);
+            }
+        </script>
+
+    </body>
+ </html>
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete
